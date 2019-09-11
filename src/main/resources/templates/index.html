@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Последняя компиляция и сжатый CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Дополнение к теме -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <title>RUZ</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark">
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/index">RUZ</a>
+
+        <div class="collapse navbar-collapse">
+            <form class="navbar-form navbar-left" action="/group">
+                <div class="form-group">
+                    <input type="search" name="groupNumber" placeholder="Номер группы.." list="groupList"
+                           class="form-control"/>
+                    <datalist id="groupList">
+                        <option th:each="group:${groups}" th:utext="${group}"></option>
+                    </datalist>
+                </div>
+
+            </form>
+            <form class="navbar-form navbar-left" action="/teacher">
+                <div class="form-group">
+                    <input type="search" name="teacher" placeholder="Препод.." list="teacherList" class="form-control"/>
+                    <datalist id="teacherList" siz>
+                        <option th:each="teacher:${teachers}"
+                                th:utext="${teacher.getLastName()+' '+ teacher.getFirstName()+' '+ teacher.getMiddleName()}"></option>
+                    </datalist>
+                </div>
+
+            </form>
+            <form action="/create" class="navbar-form navbar-right">
+                <button type="submit" class="btn btn-light">
+                    <span class="glyphicon glyphicon-plus" aria-label="Left Align"></span>
+                    Add new
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+
+</nav>
+
+
+<div class="panel panel-info" th:if="${monday}">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Monday
+        </h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="media" th:each="lesson:${monday}">
+
+            <div class="media-left">
+                <h1 th:utext="${lesson.getTime()}"></h1>
+            </div>
+            <div class="media-body">
+                <div>
+                    <h3>
+                        <b th:utext="${lesson.getName()}">
+
+                        </b>
+                        <span th:if="${lesson.isLecture()}" class="label label-warning">Lecture</span>
+                        <span th:if="${!lesson.isLecture()}" class="label label-success">Practice</span>
+                    </h3>
+
+                </div>
+
+                <div >
+                    <span class="glyphicon glyphicon-education" aria-label="Left Align"></span>
+                    <b th:text="${lesson.getGroupNumber()}">
+
+                    </b>
+                </div>
+                <div>
+
+                    <span class="glyphicon glyphicon-sunglasses" aria-label="Left Align">
+
+                    </span>
+                    <b th:text="${lesson.getTeacher().getLastName()+' '+lesson.getTeacher().getFirstName()+' '+lesson.getTeacher().getMiddleName()}">
+
+
+                    </b>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="panel panel-info" th:if="${tuesday}">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Tuesday
+        </h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="media" th:each="lesson:${tuesday}">
+
+            <div class="media-left">
+                <h1 th:utext="${lesson.getTime()}"></h1>
+            </div>
+            <div class="media-body">
+                <div>
+                    <h3>
+                        <b th:utext="${lesson.getName()}">
+
+                        </b>
+                        <span th:if="${lesson.isLecture()}" class="label label-warning">Lecture</span>
+                        <span th:if="${!lesson.isLecture()}" class="label label-success">Practice</span>
+                    </h3>
+
+                </div>
+
+                <div >
+                    <span class="glyphicon glyphicon-education" aria-label="Left Align"></span>
+                    <b th:text="${lesson.getGroupNumber()}">
+
+                    </b>
+                </div>
+                <div>
+
+                    <span class="glyphicon glyphicon-sunglasses" aria-label="Left Align">
+
+                    </span>
+                    <b th:text="${lesson.getTeacher().getLastName()+' '+lesson.getTeacher().getFirstName()+' '+lesson.getTeacher().getMiddleName()}">
+
+
+                    </b>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="panel panel-info" th:if="${wednesday}">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Wednesday
+        </h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="media" th:each="lesson:${wednesday}">
+
+            <div class="media-left">
+                <h1 th:utext="${lesson.getTime()}"></h1>
+            </div>
+            <div class="media-body">
+                <div>
+                    <h3>
+                        <b th:utext="${lesson.getName()}">
+
+                        </b>
+                        <span th:if="${lesson.isLecture()}" class="label label-warning">Lecture</span>
+                        <span th:if="${!lesson.isLecture()}" class="label label-success">Practice</span>
+                    </h3>
+
+                </div>
+
+                <div >
+                    <span class="glyphicon glyphicon-education" aria-label="Left Align"></span>
+                    <b th:text="${lesson.getGroupNumber()}">
+
+                    </b>
+                </div>
+                <div>
+
+                    <span class="glyphicon glyphicon-sunglasses" aria-label="Left Align">
+
+                    </span>
+                    <b th:text="${lesson.getTeacher().getLastName()+' '+lesson.getTeacher().getFirstName()+' '+lesson.getTeacher().getMiddleName()}">
+
+
+                    </b>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="panel panel-info" th:if="${thursday}">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Thursday
+        </h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="media" th:each="lesson:${thursday}">
+
+            <div class="media-left">
+                <h1 th:utext="${lesson.getTime()}"></h1>
+            </div>
+            <div class="media-body">
+                <div>
+                    <h3>
+                        <b th:utext="${lesson.getName()}">
+
+                        </b>
+                        <span th:if="${lesson.isLecture()}" class="label label-warning">Lecture</span>
+                        <span th:if="${!lesson.isLecture()}" class="label label-success">Practice</span>
+                    </h3>
+
+                </div>
+
+                <div >
+                    <span class="glyphicon glyphicon-education" aria-label="Left Align"></span>
+                    <b th:text="${lesson.getGroupNumber()}">
+
+                    </b>
+                </div>
+                <div>
+
+                    <span class="glyphicon glyphicon-sunglasses" aria-label="Left Align">
+
+                    </span>
+                    <b th:text="${lesson.getTeacher().getLastName()+' '+lesson.getTeacher().getFirstName()+' '+lesson.getTeacher().getMiddleName()}">
+
+
+                    </b>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="panel panel-info" th:if="${friday}">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Friday
+        </h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="media" th:each="lesson:${sunday}">
+
+            <div class="media-left">
+                <h1 th:utext="${lesson.getTime()}"></h1>
+            </div>
+            <div class="media-body">
+                <div>
+                    <h3>
+                        <b th:utext="${lesson.getName()}">
+
+                        </b>
+                        <span th:if="${lesson.isLecture()}" class="label label-warning">Lecture</span>
+                        <span th:if="${!lesson.isLecture()}" class="label label-success">Practice</span>
+                    </h3>
+
+                </div>
+
+                <div >
+                    <span class="glyphicon glyphicon-education" aria-label="Left Align"></span>
+                    <b th:text="${lesson.getGroupNumber()}">
+
+                    </b>
+                </div>
+                <div>
+
+                    <span class="glyphicon glyphicon-sunglasses" aria-label="Left Align">
+
+                    </span>
+                    <b th:text="${lesson.getTeacher().getLastName()+' '+lesson.getTeacher().getFirstName()+' '+lesson.getTeacher().getMiddleName()}">
+
+
+                    </b>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div class="panel panel-info" th:if="${sunday}">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            Sunday
+        </h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="media" th:each="lesson:${sunday}">
+
+            <div class="media-left">
+                <h1 th:utext="${lesson.getTime()}"></h1>
+            </div>
+            <div class="media-body">
+                <div>
+                    <h3>
+                        <b th:utext="${lesson.getName()}">
+
+                        </b>
+                        <span th:if="${lesson.isLecture()}" class="label label-warning">Lecture</span>
+                        <span th:if="${!lesson.isLecture()}" class="label label-success">Practice</span>
+                    </h3>
+
+                </div>
+
+                <div >
+                    <span class="glyphicon glyphicon-education" aria-label="Left Align"></span>
+                    <b th:text="${lesson.getGroupNumber()}">
+
+                    </b>
+                </div>
+                <div>
+
+                    <span class="glyphicon glyphicon-sunglasses" aria-label="Left Align">
+
+                    </span>
+                    <b th:text="${lesson.getTeacher().getLastName()+' '+lesson.getTeacher().getFirstName()+' '+lesson.getTeacher().getMiddleName()}">
+
+
+                    </b>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

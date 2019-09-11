@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Последняя компиляция и сжатый CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Дополнение к теме -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>RUZ</title>
+</head>
+<body>
+<div class="input-group">
+    <form method="post" action="/create/lesson">
+        <table class="table-light">
+            <tr>
+                <th>Day</th>
+                <th>Lesson</th>
+                <th>Name</th>
+                <th>Group</th>
+                <th>Teacher</th>
+                <th>isLecture</th>
+            </tr>
+            <tr>
+                <td>
+                    <select name="day" type="text" placeholder="Day">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+
+                    </select>
+                </td>
+                <td>
+                    <select name="lesson" type="text" placeholder="Lesson">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </td>
+                <td>
+                    <input name="name" type="text" placeholder="Name">
+                </td>
+                <td>
+                    <input name="group" type="text" placeholder="Group">
+                </td>
+                <td>
+                    <input name="teacher" type="text" placeholder="Teacher" list="teacherList">
+                    <datalist id="teacherList">
+                        <option th:each="teacher:${teachers}"
+                                th:utext="${teacher.getLastName()+' '+ teacher.getFirstName()+' '+ teacher.getMiddleName()}"></option>
+                    </datalist>
+                </td>
+                <td>
+                    <input name="isLecture" type="checkbox">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Create lesson">
+    </form>
+    <form method="post" action="/create/teacher">
+        <table>
+            <tr th:utext="${exception}"></tr>
+            <tr>
+                <th>Surname</th>
+                <th>Name</th>
+                <th>MiddleName</th>
+                <th>Salary</th>
+
+            </tr>
+            <tr>
+                <td>
+                    <input name="lastName" type="text" placeholder="Surname">
+                </td>
+                <td>
+                    <input name="firstName" type="text" placeholder="Name">
+                </td>
+                <td>
+                    <input name="middleName" type="text" placeholder="MiddleName">
+                </td>
+                <td>
+                    <input name="salary" type="text" placeholder="Salary">
+                </td>
+
+            </tr>
+        </table>
+        <input type="submit" value="Create teacher">
+    </form>
+
+</div>
+
+</body>
+</html>
